@@ -1,58 +1,145 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="static/css/styles.css"  media="screen,projection"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <main>
-            <!-- Navigation bar -->
-            <nav style="background-color:#124580">
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="static/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="static/css/styles.css" media="screen,projection" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <main>
+        <!-- Navigation bar -->
+        <!-- <nav style="background-color:#124580">
                 <div class="nav-wrapper">
                     <a href="#!" class="brand-logo left" style="margin-left: 15px;">Smart Home</a>
                     <ul id="nav-mobile" class="right" style="margin-right: 15px;">
                         <li><a href="#">Help</a></li>
                     </ul>
                 </div>
-            </nav>	
-            <!-- Page Body -->
-            <div class="container">
-                <br/>
-                <h3>Smart Home Web Client!</h3>
-                <br/>
-                <div class="row">
-                    <div class="input-field col s12 m12 l12 xl12">
-                        <textarea id="textarea_1" class="materialize-textarea" style="height: 150px;" readonly></textarea>
-                    </div>
-                    <div class="col s4 m4 l2 xl2">
-                        <button class="btn waves-effect waves-light button-view" onclick="SayHello();" name="hello_button">PRESS ME</button>
-                    </div>
-                </div>
-            </div>	
-        </main>
-		<!-- Page Footer -->
-        <footer class="page-footer" style="background-color:#124580">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s6">
-                        <h5 class="white-text">Smart Home</h5>
-                        <p class="grey-text text-lighten-4">Copyright ### - 2021</p>
-                    </div>
-                    <div class="col l6 s6">
-                        <h5 class="white-text right-align">Contact</h5>
-                        <p class="white-text right-align">
-                            <a class="grey-text text-lighten-3" href="!#">Email | </a>
-                            <a class="grey-text text-lighten-3" href="!#">Twitter | </a>
-                            <a class="grey-text text-lighten-3" href="!#">LinkedIn</a>
-                        </p>
-                    </div>
-                </div>
+            </nav> -->
+        <!-- <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo left">Smart Home</a>
+                <a href="#" class="brand-logo right">DAW I</a>
+                 <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="pages/devices.html">Devices</a></li>
+                    <li><a href="index.html">Index</a></li>
+                </ul> 
             </div>
-        </footer>
-		<!--JavaScript at end of body for optimized loading-->
-		<script type="text/javascript" src="js/materialize.min.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-    </body>
-  </html>
+        </nav> -->
+        <nav class="light-blue lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="#" class="brand-logo">Smart Home</a>
+                <a href="#" class="brand-logo right">DAW I</a>
+            </div>
+        </nav>
+
+        <!-- Page Body -->
+
+        <div class="container">
+            <div style="margin-top: 20px;">
+
+                <!-- Modal Trigger -->
+                <button data-target="modal1" class="btn modal-trigger" id="add-device-button">
+                    Add Device
+                    <i class="material-icons left">add</i>
+                </button>
+
+                <!-- Modal Structure -->
+                <!-- <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h4>Modal Header</h4>
+                        <p>A bunch of text</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                    </div>
+                </div> -->
+                <table class="highlight" id="devices-table" style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Device</th>
+                            <th>Description</th>
+                            <th>State</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal bottom-sheet">
+            <div class="modal-content">
+                <h4>New Device</h4>
+
+                <form id="new-device" class="col s12">
+                    <div class="row">
+                        <div class="col s3">
+                            <label for="new-device-name">Name</label>
+                            <input id="new-device-name" type="text" class="validate">
+                        </div>
+                        <div class="col s4">
+                            <label class="active" for="new-device-description">Description</label>
+                            <input id="new-device-description" type="text" class="validate">
+                        </div>
+                        <div class="col s2">
+                            <label for="new-device-type">Type</label>
+                            <select id="new-device-type">
+                                <option selected value="1">Iluminación</option>
+                                <option value="2">Abertura</option>
+                            </select>
+                        </div>
+                        <div class="col s1">
+                            <label>State Type</label>
+                            <select id="new-device-state-type"
+                                onchange="myMain.showNewDeviceState(this.options[this.selectedIndex].value)">
+                                <option selected value="1">On-Off</option>
+                                <option value="2">Range</option>
+                            </select>
+                        </div>
+                        <div class="col s2" id="new-device-state-div">
+                            <label for="new-device-state">State</label>
+                            <div class="switch"> <label> Off <input id="new-device-state" type="checkbox"> <span
+                                        class="lever"></span>On </label> </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close btn" style="width: 5%;" onclick="myMain.createDevice()">Save</button>
+                <button class="modal-close btn" style="margin-left: 4px;" onclick="myMain.cleanModal()">Cancel</button>
+            </div>
+        </div>
+
+
+    </main>
+    <!-- Page Footer -->
+    <footer class="light-blue lighten-1 page-footer" style="padding-top:0">
+
+        <div class="footer-copyright">
+            <div class="container">
+                © 2021 Copyright Text
+                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+        </div>
+    </footer>
+    <!-- <script> var exports = {};</script> -->
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="static/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/model/user.js"></script>
+    <script type="text/javascript" src="js/html-framework.js"></script>
+    <script type="text/javascript" src="js/api-framework.js"></script>
+    <script type="text/javascript" src="js/device-service.js"></script>
+    <script type="text/javascript" src="js/device.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>
