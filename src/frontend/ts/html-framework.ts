@@ -86,10 +86,10 @@ class HtmlFramework {
      */
     public addCellWithActionsButtons(deviceId: any, cell: HTMLTableCellElement) {
         // add edit button
-        cell.innerHTML = "<button data-target=\"editDeviceModal\" class=\"btn modal-trigger\" id=\"edit-btn-" + deviceId + "\" onclick=\"myMain.loadEditModal(" + deviceId + ")\"><i class=\"material-icons\">edit</i></button>";
+        cell.innerHTML = "<button title=\"Edit device\" data-target=\"editDeviceModal\" class=\"btn modal-trigger\" id=\"edit-btn-" + deviceId + "\" onclick=\"myMain.loadEditModal(" + deviceId + ")\"><i class=\"material-icons\">edit</i></button>";
 
         // add delete button
-        cell.innerHTML += "<button style=\"margin-left:2px\" class=\"btn\" id=\"delete-btn-" + deviceId + "\" onclick=\"myMain.deleteDevice(" + deviceId + ")\"><i class=\"material-icons\">delete</i></button>";
+        cell.innerHTML += "<button title=\"Delete device\" style=\"margin-left:2px\" class=\"btn\" id=\"delete-btn-" + deviceId + "\" onclick=\"myMain.deleteDevice(" + deviceId + ")\"><i class=\"material-icons\">delete</i></button>";
     }
 
 

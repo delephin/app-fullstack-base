@@ -156,23 +156,57 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 <details><summary><b>Mira los detalles de implementación</b></summary><br>
 
-### Agregar un dispositivo
-
-Completá los pasos para agregar un dispositivo desde el cliente web.
-
 ### Frontend
 
-Completá todos los detalles sobre cómo armaste el frontend, sus interacciones, etc.
+### Pantalla principal 
+
+![pantalla-principal](doc/main-app-screen.png)
+
+### Agregar un dispositivo
+
+Para agregar un dispositivo se deberá presionar el botón `Add Device`.  
+Se abrirá una ventana modal en la que se podrá cargar: 
+* Nombre del dispositivo.
+* Descripción del dispositivo.
+* Tipo de dispositivo.
+* Estado.  
+  
+Al finalizar de cargar los datos se podrá presionar `Save` o `Cancel`:
+* Save: enviará un request de creación al backend.
+* Cancel: descartará la modificación.
+
+![add-device-modal](doc/add-device-modal.png)
+
+### Eliminar un dispositivo
+
+Para eliminar un dispositivo se deberá presionar el botón `Delete device` ubicado en la columna `Actions`.
+
+![delete-device](doc/delete-device.png)
+
+### Actualizar un dispositivo
+
+Para actualizar un dispositivo se deberá presionar el botón `Update device` ubicado en la columna `Actions`.  
+Se abrirá una ventana modal en la que se podrá modificar: 
+* Nombre del dispositivo.
+* Descripción del dispositivo.
+* Tipo de dispositivo.
+* Estado.  
+  
+Al finalizar de cargar los datos se podrá presionar `Save` o `Cancel`:
+* Save: enviará un request de actualización al backend.
+* Cancel: descartará la modificación.
+
+![update-device](doc/update-device.png)
 
 ### Backend
 
-Completá todos los detalles de funcionamiento sobre el backend, sus interacciones con el cliente web, la base de datos, etc.
+### Interacción 
+
+![interaction](doc/interaction.png)
 
 <details><summary><b>Ver los endpoints disponibles</b></summary><br>
 
-Completá todos los endpoints del backend con los metodos disponibles, los headers y body que recibe, lo que devuelve, ejemplos, etc.
-
-1) Devolver el estado de los dispositivos.
+1) Devolver los dispositivos.
 
 ```json
 {
@@ -180,15 +214,114 @@ Completá todos los endpoints del backend con los metodos disponibles, los heade
     "request_headers": "application/json",
     "request_body": "",
     "response_code": 200,
-    "request_body": {
+    "response_body": {
         "devices": [
             {
                 "id": 1,
-                "status": true,
-                "description": "Kitchen light"
+                "name": "Lampara 1",
+                "description": "Luz living",
+                "state": 1,
+                "type": 0
             }
         ]
     },
+}
+``` 
+
+2) Devolver un dispositivo por su id.
+
+```json
+{
+    "method": "get",
+    "request_headers": "application/json",
+    "request_body": "",
+    "parameter": "id",
+    "response_code": 200,
+    "response_body": {
+        "devices": [
+            {
+                "id": 1,
+                "name": "Lampara 1",
+                "description": "Luz living",
+                "state": 1,
+                "type": 0
+            }
+        ]
+    },
+}
+``` 
+3) Crear un dispositivo.
+
+```json
+{
+    "method": "post",
+    "request_headers": "application/json",
+    "request_body": 
+        {
+            "description": "Lampara externa", 
+            "name": "Lampara",
+            "state": 1,
+            "type": "0"
+        },
+    "response_code": 200,
+    "response_body": 
+        {
+            "fieldCount": 0, 
+            "affectedRows": 1,
+            "insertId": 44, 
+            "serverStatus": 2,
+            "warningCount": 0,
+            "message": "",
+            "protocol41": true,
+            "changedRows":0
+        }
+}
+``` 
+4) Actualizar un dispositivo.
+
+```json
+{
+    "method": "put",
+    "request_headers": "application/json",
+    "parameter": "id",
+    "request_body": 
+        {
+            "id": 44,
+            "description": "Lampara externa", 
+            "name": "Lampara",
+            "state": 0,
+            "type": "0"
+        },
+    "response_code": [200, 404],
+    "response_body": 
+        {
+            "id": 44,
+            "description": "Lampara externa", 
+            "name": "Lampara",
+            "state": 0,
+            "type": "0"
+        }
+}
+``` 
+5) Borrar un dispositivo.
+
+```json
+{
+    "method": "delete",
+    "request_headers": "application/json",
+    "parameter": "id",
+    "response_code": [200, 404],
+    "response_body": 
+        {
+            "fieldCount": 0,
+            "affectedRows": 1,
+            "insertId": 0,
+            "serverStatus": 2,
+            "warningCount": 0,
+            "message": "",
+            "protocol41": true,
+            "changedRows": 0
+        }
 }
 ``` 
 

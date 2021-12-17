@@ -13,7 +13,6 @@ findDevices = (callback) => {
     connection.query("select * from Devices order by id asc", function (err, rows) {
         if (err) throw err;
 
-        console.log("Device list: " + JSON.stringify(rows));
         return callback(rows, 200);
     });
 
@@ -29,7 +28,7 @@ findDevices = (callback) => {
 findDeviceById = (deviceId, callback) => {
     console.log('findDeviceById')
 
-    connection.query("select * from Devices where d.id = ? ", deviceId, function (err, rows) {
+    connection.query("select * from Devices where id = ? ", deviceId, function (err, rows) {
             if (err) throw err;
 
             if (rows.length < 1) {
@@ -37,7 +36,6 @@ findDeviceById = (deviceId, callback) => {
                 return callback('Device not found. ', 404)
             }
 
-            console.log("Device found: " + JSON.stringify(rows));
             return callback(rows, 200)
         });
 }
