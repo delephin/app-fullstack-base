@@ -198,6 +198,8 @@ Al finalizar de cargar los datos se podrá presionar `Save` o `Cancel`:
 
 ![update-device](doc/update-device.png)
 
+![update-device-modal](doc/edit-device-modal.png)
+
 ### Backend
 
 ### Interacción 
