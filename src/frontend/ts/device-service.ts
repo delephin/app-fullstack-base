@@ -13,7 +13,7 @@ class DeviceService {
     }
 
     public editDevice(device: Device, processResponseCallback: any) {
-        this.framework.doPUT(device, "http://localhost:8000/devices" + device.id, processResponseCallback);
+        this.framework.doPUT(device, "http://localhost:8000/devices/" + device.id, processResponseCallback);
     }
 
     public deleteDevice(deviceId: any, processResponseCallback: any) {

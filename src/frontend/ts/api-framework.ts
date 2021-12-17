@@ -5,7 +5,7 @@ class ApiFramework {
         let xml = new XMLHttpRequest();
 
         xml.onreadystatechange = function respuestaServidor() {
-            console.log('respuesta recibida', xml.readyState)
+            // console.log('respuesta recibida', xml.readyState)
 
             if (xml.readyState == 4) {
                 callback(xml.status, xml.responseText);
@@ -25,7 +25,7 @@ class ApiFramework {
         let xml = new XMLHttpRequest();
 
         xml.onreadystatechange = function respuestaServidor() {
-            console.log('respuesta recibida', xml.readyState)
+            // console.log('respuesta recibida', xml.readyState)
 
             if (xml.readyState == 4) {
                 callback(device, xml.status, xml.responseText);
@@ -44,10 +44,10 @@ class ApiFramework {
         let xml = new XMLHttpRequest();
 
         xml.onreadystatechange = function respuestaServidor() {
-            console.log('respuesta recibida', xml.readyState)
+            // console.log('respuesta recibida', xml.readyState)
 
             if (xml.readyState == 4) {
-                callback(xml.status, xml.responseText);
+                callback(device, xml.status, xml.responseText);
             }
         }
 
@@ -63,7 +63,7 @@ class ApiFramework {
         let xml = new XMLHttpRequest();
 
         xml.onreadystatechange = function respuestaServidor() {
-            console.log('respuesta recibida', xml.readyState)
+            // console.log('respuesta recibida', xml.readyState)
 
             if (xml.readyState == 4) {
                 callback(deviceId, xml.status, xml.responseText);

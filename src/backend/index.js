@@ -15,9 +15,9 @@ app.use(express.static('/home/node/app/static/'));
 //=======[ Main module code ]==================================================
 
 /* 
-* get all devices
+* Get all devices
 *
-* returns:
+* Returns:
 *   - 200 successfully retrieved a list of devices
 */
 app.get('/devices/', function (req, res, next) {
@@ -29,11 +29,11 @@ app.get('/devices/', function (req, res, next) {
 });
 
 /* 
-* get a device by id
+* Get a device by id
 *
-* parameters:
+* Parameters:
 *   - id: identificator associated to a device
-* returns:
+* Returns:
 *   - 200 if device found
 *   - 404 if device not found
 */
@@ -75,6 +75,10 @@ app.post('/devices', function (req, res, next) {
  */
 app.put('/devices/:id', function (req, res, next) {
 
+    let device = req.body
+
+    console.log('updating device: ' + JSON.stringify(req.body))
+
     validateEmpty(req, res);
 
     repo.updateDevice(device, function (result, statusCode) {
@@ -101,6 +105,10 @@ app.put('/devices/:id', function (req, res, next) {
 });
 
 // helper functions
+/**
+ * Validates if the body of a request is empty.
+ * @returns error if the request body is empty.
+ */
 const validateEmpty = (req, res) => {
     let body = req.body;
     if (!body || Object.keys(body).length === 0) {

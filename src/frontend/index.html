@@ -11,24 +11,6 @@
 <body>
     <main>
         <!-- Navigation bar -->
-        <!-- <nav style="background-color:#124580">
-                <div class="nav-wrapper">
-                    <a href="#!" class="brand-logo left" style="margin-left: 15px;">Smart Home</a>
-                    <ul id="nav-mobile" class="right" style="margin-right: 15px;">
-                        <li><a href="#">Help</a></li>
-                    </ul>
-                </div>
-            </nav> -->
-        <!-- <nav>
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo left">Smart Home</a>
-                <a href="#" class="brand-logo right">DAW I</a>
-                 <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a href="pages/devices.html">Devices</a></li>
-                    <li><a href="index.html">Index</a></li>
-                </ul> 
-            </div>
-        </nav> -->
         <nav class="light-blue lighten-1" role="navigation">
             <div class="nav-wrapper container">
                 <a id="logo-container" href="#" class="brand-logo">Smart Home</a>
@@ -37,26 +19,15 @@
         </nav>
 
         <!-- Page Body -->
-
         <div class="container">
             <div style="margin-top: 20px;">
 
                 <!-- Modal Trigger -->
-                <button data-target="modal1" class="btn modal-trigger" id="add-device-button">
+                <button data-target="newDeviceModal" class="btn modal-trigger" id="add-device-button">
                     Add Device
                     <i class="material-icons left">add</i>
                 </button>
 
-                <!-- Modal Structure -->
-                <!-- <div id="modal1" class="modal">
-                    <div class="modal-content">
-                        <h4>Modal Header</h4>
-                        <p>A bunch of text</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                    </div>
-                </div> -->
                 <table class="highlight" id="devices-table" style="margin-top: 20px;">
                     <thead>
                         <tr>
@@ -74,8 +45,8 @@
         </div>
 
 
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal bottom-sheet">
+        <!-- New Device Modal Structure -->
+        <div id="newDeviceModal" class="modal bottom-sheet">
             <div class="modal-content">
                 <h4>New Device</h4>
 
@@ -83,25 +54,25 @@
                     <div class="row">
                         <div class="col s3">
                             <label for="new-device-name">Name</label>
-                            <input id="new-device-name" type="text" class="validate">
+                            <input id="new-device-name" type="text" class="validate"/>
                         </div>
                         <div class="col s4">
                             <label class="active" for="new-device-description">Description</label>
-                            <input id="new-device-description" type="text" class="validate">
+                            <input id="new-device-description" type="text" class="validate"/>
                         </div>
                         <div class="col s2">
                             <label for="new-device-type">Type</label>
                             <select id="new-device-type">
-                                <option selected value="1">Iluminación</option>
-                                <option value="2">Abertura</option>
+                                <option selected value="0">Iluminación</option>
+                                <option value="1">Abertura</option>
                             </select>
                         </div>
                         <div class="col s1">
                             <label>State Type</label>
                             <select id="new-device-state-type"
                                 onchange="myMain.showNewDeviceState(this.options[this.selectedIndex].value)">
-                                <option selected value="1">On-Off</option>
-                                <option value="2">Range</option>
+                                <option selected value="0">On-Off</option>
+                                <option value="1">Range</option>
                             </select>
                         </div>
                         <div class="col s2" id="new-device-state-div">
@@ -115,6 +86,18 @@
             <div class="modal-footer">
                 <button class="modal-close btn" style="width: 5%;" onclick="myMain.createDevice()">Save</button>
                 <button class="modal-close btn" style="margin-left: 4px;" onclick="myMain.cleanModal()">Cancel</button>
+            </div>
+        </div>
+
+
+        <!-- Edit Device Modal Structure -->
+        <div id="editDeviceModal" class="modal bottom-sheet">
+            <div class="modal-content" id="edit-modal-content">
+
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close btn" style="width: 5%;" onclick="myMain.editDevice()">Save</button>
+                <button class="modal-close btn" style="margin-left: 4px;">Cancel</button>
             </div>
         </div>
 

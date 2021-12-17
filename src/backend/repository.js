@@ -1,37 +1,35 @@
 //=======[ Settings, Imports & Data ]==========================================
 var connection = require('./mysql-connector');
 
+/**
+ * Get all devices.
+ * 
+ * Params:
+ *  - callback: Function to be called after the execution is done.
+ */
 findDevices = (callback) => {
     console.log('findDevices')
 
-    connection.query("select d.id, d.name, d.description, st.name as state_type_description, st.id as state_type, d.state, dt.id as type, dt.name as type_description " +
-    " from Devices d, StateType st, DeviceType dt " +
-    " where d.type = dt.id " + 
-    " and d.state_type = st.id " +
-    " order by d.id asc", function (err, rows) {
+    connection.query("select * from Devices order by id asc", function (err, rows) {
         if (err) throw err;
 
         console.log("Device list: " + JSON.stringify(rows));
         return callback(rows, 200);
     });
 
-    // connection.query("select * from Devices d order by d.id asc", function (err, rows) {
-    //     if (err) throw err;
-
-    //     console.log("Device list: " + JSON.stringify(rows));
-    //     return callback(rows, 200);
-    // });
-
 }
 
+/**
+ * Get a device by id.
+ * 
+ * Params:
+ *  - deviceId: Id of the device to be retrieved.
+ *  - callback: Function to be called after the execution is done.
+ */
 findDeviceById = (deviceId, callback) => {
     console.log('findDeviceById')
 
-    connection.query("select d.id, d.name, d.description, st.name as state_type_description, st.id as state_type, d.state, dt.id as type, dt.name as type_description" +
-        " from Devices d, StateType st, DeviceType dt " +
-        " where d.id = ? " + 
-        " and d.type = dt.id " + 
-        " and d.state_type = st.id ", deviceId, function (err, rows) {
+    connection.query("select * from Devices where d.id = ? ", deviceId, function (err, rows) {
             if (err) throw err;
 
             if (rows.length < 1) {
@@ -44,11 +42,18 @@ findDeviceById = (deviceId, callback) => {
         });
 }
 
+/**
+ * Creates a device.
+ * 
+ * Params:
+ *  - device: JSON representation of a device.
+ *  - callback: Function to be called after the execution is done.
+ */
 createDevice = (device, callback) => {
     console.log('createDevice [' + JSON.stringify(device) + ']');
 
-    connection.query("insert into Devices (id, name, description, state_type, state, type) "
-        + " values (?, ?, ?, ?, ?, ?)", [device.id, device.name, device.description, device.state_type, device.state, device.type],
+    connection.query("insert into Devices (id, name, description, state, type) "
+        + " values (?, ?, ?, ?, ?)", [device.id, device.name, device.description, device.state, device.type],
         function (err, result) {
             if (err) throw err;
 
@@ -57,19 +62,31 @@ createDevice = (device, callback) => {
         });
 }
 
+/**
+ * Updates a device.
+ * 
+ * Params:
+ *  - device: JSON representation of a device.
+ *  - callback: Function to be called after the execution is done.
+ */
 updateDevice = (device, callback) => {
     console.log('updateDevice [' + JSON.stringify(device) + ']');
 
-    connection.query("upadte Devices set name = ?, description = ?, state = ?, type = ? where id = ?",
+    connection.query("update Devices set name = ?, description = ?, state = ?, type = ? where id = ?",
         [device.name, device.description, device.state, device.type, device.id],
         function (err, result) {
             if (err) throw err;
-
-            console.log("Device updated: " + JSON.stringify(result));
-            return callback(result, 200);
+            return callback(device, 200);
         });
 }
 
+/**
+ * Deletes a device.
+ * 
+ * Params:
+ *  - deviceId: Id of the device to be retrieved.
+ *  - callback: Function to be called after the execution is done.
+ */
 deleteDevice = (deviceId, callback) => {
     console.log('deleteDevice [' + deviceId + ']');
 
